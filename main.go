@@ -27,7 +27,7 @@ var mainFileName string
 func main() {
 	myApp := app.New()
 
-	myWindow := myApp.NewWindow("Gopher")
+	myWindow := myApp.NewWindow("Postman-Preparer")
 	myWindow.Resize(fyne.NewSize(800, 600))
 
 	osTempDir := os.TempDir()
@@ -47,7 +47,18 @@ func main() {
 				widget.NewLabel("Version: v0.1"),
 				widget.NewLabel("Author: Matthäus Malek"),
 			), myWindow)
-		}))
+		}),
+		fyne.NewMenuItem("Help", func() {
+			dialog.ShowCustom("Help", "Close", container.NewVBox(
+				widget.NewLabel("This App is supposed to help you with preparing the csv data for the postman-request"),
+				widget.NewLabel("You can upload your csv file. After uploading your file, you can split it in smaller chunks"),
+				widget.NewLabel("Because the API Gateway, only supports 29 sec of response time, we need to send an amount of max 25K emails"),
+				widget.NewLabel("After the split, hit the 'makePostmanReady' Button"),
+				widget.NewLabel("It will ask you where to save your file, which will held the prepared content."),
+				widget.NewLabel("Copy-Paste your content to postman and hit the SEND button. All good :)"),
+			), myWindow)
+		}),
+	)
 	mainMenu := fyne.NewMainMenu(
 		fileMenu,
 		helpMenu,
@@ -58,8 +69,13 @@ func main() {
 	text := canvas.NewText("Welcome", color.White)
 	text.Alignment = fyne.TextAlignCenter
 
+	// result labels
 	uploadLabel := widget.NewLabel("result uploaded file:")
 	splitLabel := widget.NewLabel("you have splited files:")
+
+	// canvas line
+	line := canvas.NewLine(color.White)
+	line.StrokeWidth = 5
 
 	// Define Upload button
 	uploadCsvBtn := widget.NewButton("Upload CSV", func() {
@@ -108,6 +124,7 @@ func main() {
 		uploadLabel,
 		splitFilesBtn,
 		splitLabel,
+		line,
 		makePostmanBodyBtn,
 	)
 	// Display our content
