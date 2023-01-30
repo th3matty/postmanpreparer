@@ -1,4 +1,4 @@
-module github.com/th3matty/postmanPreparer
+module github.com/th3matty/postmanpreparer
 
 go 1.18
 
