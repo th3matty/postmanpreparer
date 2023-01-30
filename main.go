@@ -257,7 +257,7 @@ func splitCsvFiles(filePath string, splitLabel *widget.Label) ([]string, error) 
 		writer.Write(record)
 		writer.Flush()
 	}
-	splitLabel.SetText("You have splitted your primary file into " + fmt.Sprint(len(splittedFiles)) + " files")
+	splitLabel.SetText("You have split your primary file into " + fmt.Sprint(len(splittedFiles)) + " files")
 
 	return splittedFiles, nil
 }
